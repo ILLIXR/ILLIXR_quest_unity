@@ -7,7 +7,7 @@ using System.IO;
 using System.Collections;
 using TMPro;
 using UnityEngine.Networking;
-//using AOT;
+using AOT;
 
 [StructLayout(LayoutKind.Sequential)]
 public struct UnityPoseData
@@ -17,19 +17,19 @@ public struct UnityPoseData
     public int isTracked;
 }
 
-public class text_changer : MonoBehaviour
+public class TextChanger : MonoBehaviour
 {
-    //public static text_changer instance;
+    public static TextChanger Instance;
 
     public TextMeshPro myText;
 
-    //public delegate void TextMeshProDelegate(string text);
+    public delegate void TextMeshProDelegate(string text);
 
     [DllImport("illixr_unity", CharSet = CharSet.Ansi)]
     private static extern void set_pose(UnityPoseData data);
 
     [DllImport("illixr_unity", CharSet = CharSet.Ansi)]
-    private static extern void initialize_for_unity([MarshalAs(UnmanagedType.LPStr)] string path);//, TextMeshProDelegate callback);
+    private static extern void initialize_for_unity([MarshalAs(UnmanagedType.LPStr)] string path, TextMeshProDelegate callback);
 
     [Header("Pose Tracking")]
     //public Transform headTransform;
@@ -41,20 +41,20 @@ public class text_changer : MonoBehaviour
 
     private InputDevice headDevice;
 
-    /*[MonoPInvokeCallback(typeof(TextMeshProDelegate))]
-    private static void updateText(string text)
+    [MonoPInvokeCallback(typeof(TextMeshProDelegate))]
+    private static void UpdateText(string text)
     {
         Debug.Log("Rx message");
-        if (instance != null)
+        if (Instance != null)
         {
-            instance.myText.text = text;
+            Instance.myText.text = text;
         }
     }
 
     void Awake()
     {
-        instance = this;
-    }*/
+        Instance = this;
+    }
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -168,7 +168,7 @@ public class text_changer : MonoBehaviour
             }
         }
         Debug.Log("illixr initializing");
-        initialize_for_unity(targetDir);// updateText);
+        initialize_for_unity(targetDir, UpdateText);
     }
 
     IEnumerator ExtractFile(string sourcePath, string targetPath)
