@@ -191,4 +191,4 @@ branch. The files that specifically deal with the Unity interaction are (all und
 - *include/illixr/data_format/unity_data.hpp* - defines the C++ version of the`UnityPoseData` struct
 - *src/unity_plugin.cpp* - main entry point for Unity for ILLIXR, implements the `initialize_for_unity` function
 - *src/runtime_impl.cpp* - initializes the ILLIXR system; loads and initializes the plugins; implements `set_pose` function
-- *services/unity_pose/service.cpp* - plugin which receives the pose from Unity, transforms it, and sends test back to Unity
+- *services/unity_pose/service.cpp* - plugin which receives the pose from Unity, transforms it, and sends text back to Unity
